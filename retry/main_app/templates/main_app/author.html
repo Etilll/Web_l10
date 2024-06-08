@@ -1,0 +1,35 @@
+
+{% extends "main_app/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <ul>
+        <div>
+            <h3>{{ author.author_name }}</h3>
+            <div>
+                <div class="small_bold">Born {{ author.author_birth_place }}, {{ author.author_birth_month }} {{ author.author_birth_day }}, {{ author.author_birth_year }}</div>
+                <div class="small_bold">Died in {{ author.author_death_month }} {{ author.author_death_day }}, {{ author.author_death_year }}</div>
+                <span class="small">{{ author.author_desc }}</span>
+                
+                <style>
+                    .small_bold {
+                    font-size: 16px;
+                    font-weight: bold;
+                    }
+                    .small {
+                    font-size: 16px;
+                    }
+                </style>
+                <div></div>
+                {% if user.is_authenticated and creator %}
+                    <a class="btn btn-warning" href="{% url 'author_update' author.id %}">EDIT</a>
+                    <a class="btn btn-danger" href="{% url 'author_delete' author.id %}">DELETE</a>
+                {% endif %}
+                <br><br/>
+            </div>
+        </div>
+    </ul>
+  
+{% endblock content %}

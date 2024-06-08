@@ -1,0 +1,10 @@
+{% extends "main_app/base.html" %}
+
+{% block content %}
+<form method="add_author" action="main_app:author_details">
+    {{form}}
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+
+
+{% endblock content %}

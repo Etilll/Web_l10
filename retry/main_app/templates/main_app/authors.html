@@ -1,0 +1,40 @@
+
+{% extends "main_app/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+    {% if authors %}
+    <ul>
+        {% if user.is_authenticated %}
+        <a class="btn btn-success" href="{% url 'add_author' %}">ADD</a>
+        {% endif %}
+        {% for author in authors %}
+        <li>
+            <div>
+                <a class="title_bold" href="/app/authors/{{author.id}}/">{{ author.author_name }}</a>
+                <h6>{{ author.author_birth_month }} {{ author.author_birth_day }}, {{ author.author_birth_year }} - {{ author.author_death_month }} {{ author.author_death_day }}, {{ author.author_death_year }}</h6>
+               
+                <style>
+                    .title_bold {
+                    font-size: 26px;
+                    font-weight: bold;
+                    }
+                    .small {
+                    font-size: 16px;
+                    }
+                </style>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <h2>No authors have been added yet. Yours can be the first! </h2>
+        {% if user.is_authenticated %}
+        <a class="btn btn-success" href="{% url 'add_author' %}">ADD</a>
+        {% endif %}
+    {% endif %}
+  
+{% endblock content %}

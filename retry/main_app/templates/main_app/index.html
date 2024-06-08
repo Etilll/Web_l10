@@ -1,0 +1,44 @@
+
+{% extends "main_app/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <a href="{% url 'post' %}">
+    </a>
+
+    {% if posts %}
+    <ul>
+        {% for post in posts %}
+        <li>
+            <div>
+                <h3>{{ post.post_text }}</h3>
+                {% for tag in post.post_tags.all %}
+                    <a class="btn btn-info" href="/app/tags/{{tag.id}}/">{{tag}}</a>
+                {% endfor %}
+                <div>
+                    <span class="small">Quote by </span>
+                    <a class="small_bold" href="/app/authors/{{post.post_author.id}}">{{ post.post_author }}</a>
+                    <span class="small">, posted on {{post.post_publish_date|date}}</span>
+                  
+                    <style>
+                        .small_bold {
+                        font-size: 16px;
+                        font-weight: bold;
+                        }
+                        .small {
+                        font-size: 16px;
+                        }
+                    </style>
+                    <br><br/>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <h2>No posts have been added yet. Yours can be the first! </h2>
+    {% endif %}
+  
+{% endblock content %}

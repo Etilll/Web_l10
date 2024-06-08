@@ -1,0 +1,52 @@
+
+{% extends "main_app/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+    {% if posts %}
+    <ul>
+        {% if user.is_authenticated %}
+        <a class="btn btn-success" href="{% url 'add_post' %}">ADD</a>
+        {% endif %}
+        {% for post in posts %}
+        <li>
+            <div>
+                <h3>{{ post.post_text }}</h3>
+                {% for tag in post.post_tags.all %}
+                    <a class="btn btn-info" href="/app/tags/{{tag.id}}/">{{tag}}</a>
+                {% endfor %}
+                <div>
+                    <span class="small">Quote by </span>
+                    <a class="small_bold" href="/app/authors/{{post.post_author.id}}">{{ post.post_author }}</a>
+                    <span class="small">, posted on {{post.post_publish_date|date}}</span>
+                  
+                    <style>
+                        .small_bold {
+                        font-size: 16px;
+                        font-weight: bold;
+                        }
+                        .small {
+                        font-size: 16px;
+                        }
+                    </style>
+                    {% if user.is_authenticated %}
+                        <a class="btn btn-warning" href="{% url 'post_update' post.id %}">EDIT</a>
+                        <a class="btn btn-danger" href="{% url 'post_delete' post.id %}">DELETE</a>
+                    {% endif %}
+                    <br><br/>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <h2> You haven't posted anything yet. </h2>
+        {% if user.is_authenticated %}
+        <a class="btn btn-success" href="{% url 'add_post' %}">ADD</a>
+        {% endif %}
+    {% endif %}
+  
+{% endblock content %}
