@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from .models import Post, Author, Tag
 from .forms import PostForm, AuthorForm, CustomUserCreationForm
 
-from .transfer import prepare_data_for_db
+#from .transfer import prepare_data_for_db
 
 # Create your views here.
 
@@ -159,10 +159,10 @@ def tag_details(request, tag_id):
     return HttpResponse(template.render(context=context, request=request))
 
 def index(request):
-    last_5_posts = Post.objects.order_by("-post_publish_date")[:10]
+    last_10_posts = Post.objects.order_by("-post_publish_date")[:10]
     template = loader.get_template("main_app/index.html")
     context = {
-        "posts": last_5_posts,
+        "posts": last_10_posts,
         "title":"Home page"
     }
     return HttpResponse(template.render(context=context, request=request))
