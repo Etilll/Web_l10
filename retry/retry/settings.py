@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from conf.config import settings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(+ny9k962te=*p5(=uq*_#xmfgxy*z4ia2w#g_*i(_=4kco(u$'
+SECRET_KEY = settings.secrey_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,15 +31,15 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.meta.ua'
-EMAIL_PORT = 465
+EMAIL_BACKEND = settings.email_backend
+EMAIL_HOST = settings.email_host
+EMAIL_PORT = settings.email_port
 EMAIL_STARTTLS = False
 EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
-EMAIL_HOST_USER = 'pyretry@meta.ua'
-EMAIL_HOST_PASSWORD = 'Mastermind264!'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_USER = settings.email_host_user
+EMAIL_HOST_PASSWORD = settings.email_host_password
+DEFAULT_FROM_EMAIL = settings.default_from_email
 
 # Application definition
 
@@ -96,13 +97,14 @@ WSGI_APPLICATION = 'retry.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': '567234',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': settings.db_name,
+        'USER': settings.db_user,
+        'PASSWORD': settings.db_pass,
+        'HOST': settings.db_host,
+        'PORT': settings.db_port,
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
